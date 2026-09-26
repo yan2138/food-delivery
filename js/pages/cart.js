@@ -8,6 +8,7 @@ function saveLocalCart(cart) {
 }
 
 function renderCart() {
+  console.log("Cart page loaded at 9/26");
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>Shopping Cart</h1>
@@ -36,21 +37,26 @@ function loadLocalCart() {
   }
 
   let total = 0;
+  let totalItems = 0; 
   listEl.innerHTML = '';
 
   cart.forEach((item, index) => {
     total += item.price * item.quantity;
+    totalItems += item.quantity; 
+    
     const div = document.createElement('div');
     div.style.border = '1px solid #eee';
     div.style.padding = '15px';
     div.style.margin = '10px 0';
+    
+   
     div.innerHTML = `
       <h3>${item.name}</h3>
       <p>Price: ${item.price} RUB</p>
       <p>Quantity:
-        <button onclick="changeQuantity(${index}, -1)" style="padding: 5px 10px; margin: 0 5px;">-</button>
-        ${item.quantity}
-        <button onclick="changeQuantity(${index}, 1)" style="padding: 5px 10px; margin: 0 5px;">+</button>
+        <button onclick="changeQuantity(${index}, -1)" style="background: #f0f0f0; border: 1px solid #ccc; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px; line-height: 1;">-</button>
+        <span style="margin: 0 10px; font-weight: bold;">${item.quantity}</span>
+        <button onclick="changeQuantity(${index}, 1)" style="background: #f0f0f0; border: 1px solid #ccc; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px; line-height: 1;">+</button>
       </p>
       <p>Subtotal: ${(item.price * item.quantity).toFixed(2)} RUB</p>
       <button onclick="removeItem(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
@@ -60,7 +66,8 @@ function loadLocalCart() {
     listEl.appendChild(div);
   });
 
-  totalEl.innerHTML = `Total: ${total.toFixed(2)} RUB`;
+  
+  totalEl.innerHTML = `Total (${totalItems} items): ${total.toFixed(2)} RUB`;
   checkoutBtn.disabled = false;
   checkoutBtn.style.opacity = '1';
 
@@ -74,9 +81,16 @@ function loadLocalCart() {
 window.changeQuantity = function(index, delta) {
   const cart = getLocalCart();
   cart[index].quantity += delta;
+  
+  
   if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
+    if (confirm('Quantity is 0. Remove this item?')) {
+      cart.splice(index, 1);
+    } else {
+      cart[index].quantity = 1; 
+    }
   }
+  
   saveLocalCart(cart);
   loadLocalCart();
 };

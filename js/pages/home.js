@@ -8,6 +8,7 @@ function saveLocalCart(cart) {
 }
 
 function renderHome() {
+   console.log("Home page loaded at 9/25"); 
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>Food Delivery</h1>
