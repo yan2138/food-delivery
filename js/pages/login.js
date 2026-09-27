@@ -1,4 +1,5 @@
 function renderLogin() {
+   console.log("Login and registration pages loaded at 9/27");
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>Login</h1>
