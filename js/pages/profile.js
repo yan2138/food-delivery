@@ -1,4 +1,5 @@
 function renderProfile() {
+  console.log("Profile and Orders pages loaded at 9/28"); 
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>👤 Profile</h1>
@@ -32,6 +33,10 @@ async function loadProfileInfo() {
       <p><strong>Birth Date:</strong> ${user.birthDate ? new Date(user.birthDate).toLocaleDateString() : 'Not set'}</p>
     `;
   } catch (err) {
-    infoEl.innerHTML = "<p>Failed to load: " + err.message + "</p>";
+    
+    infoEl.innerHTML = `
+      <p style="color: red;">Failed to load profile: ${err.message}</p>
+      <button onclick="loadProfileInfo()" style="padding: 8px 16px; cursor: pointer;">Retry</button>
+    `;
   }
 }
