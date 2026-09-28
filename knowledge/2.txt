@@ -1,0 +1,14 @@
+# 04 Local Setup and Troubleshooting
+
+## Prerequisites
+Before running the project, ensure you have:
+- A modern web browser (Chrome, Firefox, Edge, etc.).
+- Git installed on your machine.
+- (Optional) Visual Studio Code for editing the code.
+- (Optional) Python installed if you want to run a local HTTP server.
+
+## Getting the Code
+To get a local copy of the project, run the following command in your terminal:
+```bash
+git clone https://github.com/yan2138/food-delivery.git
+cd food-delivery

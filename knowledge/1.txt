@@ -1,0 +1,26 @@
+# 01 Project Overview
+
+## Purpose
+This project is a frontend-only Food Delivery web application. It simulates the core user experience of ordering food online, including browsing dishes, managing a shopping cart, user authentication, and viewing order history. It is designed as a study project to demonstrate pure web development skills without relying on a backend server.
+
+## Technology Stack
+- **HTML5**: Used for structuring the web pages.
+- **CSS3**: Used for styling and layout.
+- **Vanilla JavaScript (ES6+)**: Used for all application logic, routing, and state management. No frontend frameworks (such as React or Vue) are used.
+
+## Application Structure (Pages)
+The application is a Single Page Application (SPA) that uses client-side routing (via `router.js`). The main pages include:
+- **Home**: Displays a list of available dishes and allows users to add them to the cart.
+- **Cart**: Shows the selected items, allows quantity adjustments, and calculates the total price.
+- **Login / Registration**: Provides basic forms for user authentication and account creation.
+- **Profile**: Displays the logged-in user's information (name, email, phone, etc.).
+- **Orders**: Displays the user's order history or a demo order if none exists.
+
+## Data Storage
+Currently, the application uses **LocalStorage** to simulate data persistence. 
+- The shopping cart data is stored under the key `cart`.
+- User session tokens are stored for authentication simulation.
+- No real database or backend API is used in this version.
+
+## Intended Reader
+This document is intended for developers who are new to the project and need to understand its high-level architecture before diving into the code.
