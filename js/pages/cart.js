@@ -8,18 +8,34 @@ function saveLocalCart(cart) {
 }
 
 function renderCart() {
-  console.log("Cart page loaded at 9/26");
+  
+  console.log("Cart page loaded at 9/30 - YAN-7 improvements");
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>Shopping Cart</h1>
     <div id="cartList">Loading...</div>
-    <div id="cartTotal" style="margin: 15px 0; font-size: 18px; font-weight: bold;"></div>
-    <button id="checkoutBtn" style="background: #ff6b00; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-      Checkout
-    </button>
+    <div id="cartTotal" style="margin: 15px 0; font-size: 18px; font-weight: bold; padding: 10px; background: #f9f9f9; border-radius: 4px;"></div>
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+      <button id="checkoutBtn" style="background: #ff6b00; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; transition: opacity 0.3s;">
+        Checkout
+      </button>
+      <!-- New: Clear Cart Button -->
+      <button id="clearCartBtn" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+        Clear Cart
+      </button>
+    </div>
     <p><a href="/" onclick="event.preventDefault(); navigate('/')">Back to Menu</a></p>
   `;
+  
   loadLocalCart();
+
+  
+  document.getElementById('clearCartBtn').onclick = () => {
+    if (confirm('Are you sure you want to clear the entire cart?')) {
+      saveLocalCart([]);
+      loadLocalCart();
+    }
+  };
 }
 
 function loadLocalCart() {
@@ -29,27 +45,28 @@ function loadLocalCart() {
   const checkoutBtn = document.getElementById('checkoutBtn');
 
   if (cart.length === 0) {
-    listEl.innerHTML = '<p>Your cart is empty</p>';
-    totalEl.innerHTML = '';
+    
+    listEl.innerHTML = '<p style="color: #888;">Your cart is empty.</p>';
+    totalEl.innerHTML = 'Total: 0.00 RUB (0 items)';
     checkoutBtn.disabled = true;
     checkoutBtn.style.opacity = '0.5';
     return;
   }
 
   let total = 0;
-  let totalItems = 0; 
+  let totalItems = 0;
   listEl.innerHTML = '';
 
   cart.forEach((item, index) => {
     total += item.price * item.quantity;
-    totalItems += item.quantity; 
+    totalItems += item.quantity;
     
     const div = document.createElement('div');
     div.style.border = '1px solid #eee';
     div.style.padding = '15px';
     div.style.margin = '10px 0';
+    div.style.borderRadius = '6px'; 
     
-   
     div.innerHTML = `
       <h3>${item.name}</h3>
       <p>Price: ${item.price} RUB</p>
@@ -66,7 +83,6 @@ function loadLocalCart() {
     listEl.appendChild(div);
   });
 
-  
   totalEl.innerHTML = `Total (${totalItems} items): ${total.toFixed(2)} RUB`;
   checkoutBtn.disabled = false;
   checkoutBtn.style.opacity = '1';
@@ -82,12 +98,11 @@ window.changeQuantity = function(index, delta) {
   const cart = getLocalCart();
   cart[index].quantity += delta;
   
-  
   if (cart[index].quantity <= 0) {
     if (confirm('Quantity is 0. Remove this item?')) {
       cart.splice(index, 1);
     } else {
-      cart[index].quantity = 1; 
+      cart[index].quantity = 1;
     }
   }
   
