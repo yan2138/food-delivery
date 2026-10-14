@@ -8,10 +8,16 @@ function saveLocalCart(cart) {
 }
 
 function renderHome() {
-   console.log("Home page loaded at 9/25"); 
+
+  console.log("Home page loaded with search filter at 10/14");
   const app = document.getElementById('app');
   app.innerHTML = `
     <h1>Food Delivery</h1>
+    <div style="margin-bottom: 20px;">
+      <!-- 新增：搜索输入框 -->
+      <input type="text" id="searchInput" placeholder="Search dishes..." 
+             style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+    </div>
     <div id="dishList">Loading...</div>
     <hr>
     <p>
@@ -19,10 +25,17 @@ function renderHome() {
       <a href="/profile" onclick="event.preventDefault(); navigate('/profile')">Profile</a>
     </p>
   `;
-  loadDishes();
+  
+  
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    loadDishes(e.target.value);
+  });
+
+  loadDishes(); 
 }
 
-function loadDishes() {
+
+function loadDishes(searchTerm = '') {
   const container = document.getElementById('dishList');
 
   const dishes = [
@@ -33,12 +46,26 @@ function loadDishes() {
     { id: 5, name: 'Shredded Pork in Fish Sauce', price: 32, description: 'Classic Chinese dish with savory taste' }
   ];
 
+  
+  const filteredDishes = dishes.filter(dish => 
+    dish.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   container.innerHTML = '';
-  dishes.forEach(dish => {
+
+  
+  if (filteredDishes.length === 0) {
+    container.innerHTML = '<p style="color: #888;">No dishes found matching your search.</p>';
+    return;
+  }
+
+  
+  filteredDishes.forEach(dish => {
     const item = document.createElement('div');
     item.style.border = '1px solid #eee';
     item.style.padding = '15px';
     item.style.margin = '10px 0';
+    item.style.borderRadius = '6px'; 
     item.innerHTML = `
       <h3>${dish.name}</h3>
       <p>Price: ${dish.price} RUB</p>
