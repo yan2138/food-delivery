@@ -58,3 +58,31 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+
+/* Responsive design for mobile devices (YAN-10) */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  div {
+    /* Ensure cards fit the screen */
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
