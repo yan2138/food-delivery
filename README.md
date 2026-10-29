@@ -42,13 +42,17 @@ js/
     router.js
 
 ## Main Features
-1. User registration and login with form validation
-2. Browse food menu
-3. Add products to shopping cart
-4. Modify quantity and remove items in cart
-5. Create orders and view order list
-6. User profile and logout function
-7. Clear entire shopping cart with confirmation
+
+1. **User Authentication**: Secure registration and login interfaces with client-side form validation (email format, password length) and dynamic error handling.
+2. **Dynamic Food Menu**: Browse a curated list of dishes including detailed names, prices, and descriptions.
+3. **Real-time Search**: Instantly filter the food menu by dish name as the user types in the search input.
+4. **Category Filtering**: Filter dishes by categories (All, Meat, Vegetable) to improve the browsing experience.
+5. **Shopping Cart Management**: Seamlessly add items to the cart, with data persisted using the browser's LocalStorage.
+6. **Cart Modifications**: Increase or decrease item quantities, remove items entirely, and view real-time subtotal and total price calculations.
+7. **Clear Cart**: A dedicated button to empty the entire shopping cart, complete with a confirmation prompt to prevent accidental deletions.
+8. **Order History & Status**: View a detailed list of past orders. Each order displays a color-coded status badge (Green for Delivered, Orange for Pending/Ordered, Red for Cancelled).
+9. **User Profile**: View account details (name, email, phone, address) and securely log out of the session.
+10. **Mobile Responsive Design**: Fully responsive UI optimized for smaller screens (under 600px) using modern CSS media queries.
 
 ## How to Run
 See the Knowledge Base article 04 Local setup and troubleshooting for detailed instructions.
